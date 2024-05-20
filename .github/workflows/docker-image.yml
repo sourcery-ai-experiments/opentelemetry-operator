@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+description: This workflow builds and tests the Docker image for the application.
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: 'a specific commit SHA'
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(git rev-parse --short HEAD)
